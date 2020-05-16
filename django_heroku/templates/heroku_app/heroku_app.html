@@ -1,18 +1,19 @@
 <!-- templates > heroku_app > heroku_app.html -->
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Image and text -->
 <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="/">
-        Horoscope Daily
+        Horoscope App
     </a>
 </nav>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4">Horoscope App</h1>
-        <p class="lead">Get your daily Horoscope Instantly with just a click.</p>
+        <p class="lead">Get your daily Horoscope Instantly with just two clicks.</p>
     </div>
 </div>
 
@@ -29,7 +30,7 @@
                             <label class="input-group-text" for="inputGroupSelect01">Options</label>
                         </div>
                         <select class="custom-select" id="custom-select">
-                            <option selected>Choose your sign</option>
+                            <option selected disabled>Choose your sign</option>
                             <option value="Aries">Aries</option>
                             <option value="Taurus">Taurus</option>
                             <option value="Gemini">Gemini</option>
@@ -136,6 +137,5 @@
 
     });
 </script>
-
 
 {% endblock content %}

@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -24,9 +25,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = '^q@b-c9n@r0r2w8dr2zpw9pd!*^poz+&9n6@c46w)bn_9u%k0o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://heroku-horoscope-app.herokuapp.com/', '127.0.0.1',]
+ALLOWED_HOSTS = ['heroku-horoscope-app.herokuapp.com', '127.0.0.1',]
 
 
 # Application definition
