@@ -1,0 +1,141 @@
+<!-- templates > heroku_app > heroku_app.html -->
+{% extends 'base/base.html' %}
+
+{% block content %}
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        Horoscope Daily
+    </a>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Horoscope App</h1>
+        <p class="lead">Get your daily Horoscope Instantly with just a click.</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="h3 text-center mb-3">Get your Horoscope</p>
+                    <p class="lead">One-click Horoscope! choose your Horoscope from the drop down.</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                        </div>
+                        <select class="custom-select" id="custom-select">
+                            <option selected>Choose your sign</option>
+                            <option value="Aries">Aries</option>
+                            <option value="Taurus">Taurus</option>
+                            <option value="Gemini">Gemini</option>
+                            <option value="Cancer">Cancer</option>
+                            <option value="Leo">Leo</option>
+                            <option value="Virgo">Virgo</option>
+                            <option value="Libra">Libra</option>
+                            <option value="Scorpio">Scorpio</option>
+                            <option value="Sagittarius">Sagittarius</option>
+                            <option value="Capricorn">Capricorn</option>
+                            <option value="Aquarius">Aquarius</option>
+                            <option value="Pisces">Pisces</option>
+                        </select>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div id="horoscope_card_body" class="card-body">
+                            <div id="loading_stat" style="display:none;" class="spinner-border text-info" role="status">
+                            </div>
+                            <div id="hide_when_loading">
+                                <h5 id="sign" class="card-title">[Sign Name]</h5>
+                                <h6 id="date" class="card-subtitle mb-2 text-muted">[Date]</h6>
+                                <p id="horoscope_content" class="card-text">[Horoscope Content]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="h3 text-center mb-3">Horoscope Help</p>
+                    <p class="lead">Use the below information to help you find your Horoscope.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="font-weight-bold">Aries</span>: March 21 - April 19
+                        </li>
+                        <li class="list-group-item"><span class="font-weight-bold">Taurus</span>: April 20 - May 20</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Gemini</span>: May 21 - June 20</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Cancer</span>: June 21 - July 22</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Leo</span>: July 23 - August 22</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Virgo</span>: August 23 - September
+                            22</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Libra</span>: September 23 - October
+                            22</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Scorpio</span>: October 23 - November
+                            21</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Sagittarius</span>: November 22 -
+                            December 21</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Capricorn</span>: December 22 -
+                            January 19</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Aquarius</span>: January 20 -
+                            February 18</li>
+                        <li class="list-group-item"><span class="font-weight-bold">Pisces</span>: February 19 - March 2
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    //   1. detect on selection change
+    $('#custom-select').on('change', function () {
+
+        // toggle loader and content
+        $('#loading_stat').show();
+        $('#hide_when_loading').hide();
+
+        var sign = this.value;
+        // 2. make a get request to the horoscope api
+        $.getJSON("https://www.horoscopes-and-astrology.com/json", function (data, status) {
+
+            var horoscope_content = data.dailyhoroscope[sign];
+
+            // toggle loader and content
+            $('#loading_stat').hide();
+            $('#hide_when_loading').show();
+
+            // 3. populate the horoscope content
+            $('#horoscope_content').html(horoscope_content)
+            // 4. populate the sign
+            $('#sign').html(sign)
+
+            // 5. generate the current date
+            var date_raw = new Date();
+
+            var month = date_raw.getMonth() + 1;
+            var day = date_raw.getDate();
+
+            var date_formatted = date_raw.getFullYear() + '/' +
+                (('' + month).length < 2 ? '0' : '') + month + '/' +
+                (('' + day).length < 2 ? '0' : '') + day;
+
+            // 6. populate the date 
+            $('#date').html(date_formatted)
+
+        });
+
+    });
+</script>
+
+
+{% endblock content %}
